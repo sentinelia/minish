@@ -27,6 +27,7 @@ struct builtin_struct {         // struct con información de los builtins
 // Variables que deben definirse en el main como externas
 
 extern int globalstatret;	// guarda status del ultimo comando
+extern struct sigaction oldact, newact;
 
 extern struct builtin_struct builtin_arr[] = {
     {"cd", builtin_cd, HELP_CD} //hacer esto para todos los comandos
