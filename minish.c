@@ -42,13 +42,6 @@ sigint_handler(int signum) {                    // the handler for SIGINT
     fprintf(stderr, "Interrupt! (signal number %d)\n", signum);
 }
 
-int liberar_array(char ** arr){
-    for(int i = 0; arr[i]!=NULL; i++){
-        free(arr[i]);
-    }
-    free(arr);
-    return arr;
-}
 
 // NO SE QUE HACE LA MITAD DE LAS COSAS QUE ESTÁN ACÁ
 int
@@ -81,7 +74,7 @@ main(int argc, char *argv[]) {
             args[i] = malloc(sizeof(char) * MAXLINE);
         }
         ejecutar(linea2argv(line, MAXLINE, args), args);
-        liberar_array(args);
+        //liberar_array(args);
         
     }
 
