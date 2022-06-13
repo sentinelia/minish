@@ -4,10 +4,10 @@
 #include <stdlib.h>
 
 int builtin_gid (int argc, char ** argv){
-
-    printf('grupo principal: %s\n',(int) getgid());
-
-    /*gid_t *group;
+    
+    printf('grupo principal: %s\n',getgid());
+    
+    gid_t *group;
     int nogroups;
     long ngroups_max;
 
@@ -19,12 +19,11 @@ int builtin_gid (int argc, char ** argv){
 
     
     
-     gid_t *i;
+    gid_t *i;
+    
     for(i = group; i != NULL; i++){
         printf('grupo secundario %s\n', i);
-    }*/
-
-
+    }
 
 
 
