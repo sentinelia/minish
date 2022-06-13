@@ -17,6 +17,14 @@ void prompt(char *ps)
     fprintf(stderr, "(%s) ^D to exit > ", ps);
 }
 
+//LIBERA LUGARES DE MEMORIA DE ARRAY DE PALABRAS
+void liberar_array(char **arr, int size){
+    for(int i = 0;i<size;i++){
+        free(arr[i]);
+    }
+    free(arr);
+}
+
 // ============== NEW CODE HERE ==============
 void sigint_handler(int signum)
 { // the handler for SIGINT
@@ -61,20 +69,16 @@ int main(int argc, char *argv[])
             args[i] = malloc(sizeof(char) * MAXLINE);
         }
 
-        char argq = linea2argv(line, MAXLINE, args);
-        
+        char argq = linea2argv(line, MAXLINE, args); //CANTIDAD DE ARGUMENTOS
+
         if (argq != 0)
         {
-            STATUS = ejecutar(argq, args);
+            STATUS = ejecutar(argq, args); //EJECUTO COMANDO QUE SE ENCUENTRA EN ARGS[0], CON ARGQ CANTIDAD DE ELEMENTOS
         }
-        // liberar_array(args);
+        liberar_array(args, MAXWORDS);
     }
 
     fputc('\n', stderr);
     fprintf(stderr, "Exiting %s ...\n", progname);
     exit(EXIT_SUCCESS);
 }
-
-// AL FINAL BUILT INS TAMBIÉN VAN EN ARCHIVO SEPARADO
-// LA DIFERENCIA ES QUE LOS BUILTIN SON FUNCIONES EN .C,
-// LOS COMANDOS EXTERNOS SE LLAMAN CON EXCECVP

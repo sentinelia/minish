@@ -32,7 +32,7 @@
     { "unsetenv", builtin_unsetenv, HELP_UNSETENV },
     { NULL, NULL, NULL}
 };
-
+  //BUSCA EN BUILTIN_ARR SI EXISTE COMANDO, SINO DEVUELVE NULL
  struct builtin_struct * builtin_lookup(char *cmd){
     struct builtin_struct *p;
     for (p=builtin_arr; p->cmd != NULL; p++) {

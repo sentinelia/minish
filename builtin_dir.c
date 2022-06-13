@@ -51,9 +51,10 @@ char *format_ch(int mode, char trwx[11]){
 
     return trwx;
 }
-
+//ESTA FUNCIÓN TRANSFORMA TIME_T EN STRING
 char* formatdate(char* str, time_t val)
-{
+{       
+        
         strftime(str, 20, "%d/%m/%Y %H:%M:%S", localtime(&val));
         return str;
 }
@@ -62,15 +63,17 @@ int builtin_dir (int argc, char ** argv){
     DIR *dir;
     struct dirent *myfile;
     struct stat mystat;
-    char trwx[11];
-    char time[20];
+    char trwx[11]; //STRING PERMISOS
+    char time[20]; //STRING FECHA DE CREACIÓN
 
     if(argc==1){
         dir = opendir(".");
     } else {
         dir = opendir(argv[1]);
     }
-
+    
+    //FUNCION READDIR VA LEYENDO DE A UN DIRECTORIO
+    //LUEGO IMPRIMO INFORMACIÓN FORMATEADA SOBRE EL MISMO
     while((myfile = readdir(dir)) != NULL)
     {
         stat(myfile->d_name, &mystat);
@@ -79,7 +82,7 @@ int builtin_dir (int argc, char ** argv){
         printf(" %s", getgrgid(mystat.st_gid)->gr_name); //TRANSFORMAR
         printf(" %s", getpwuid(mystat.st_gid)->pw_name); //TRANSFORMAR
         printf("\t%d",mystat.st_size);
-        printf("\t%s",formatdate(time, mystat.st_atime));
+        printf("\t%s",formatdate(time, mystat.st_ctime));
         printf("\t%s\n", myfile->d_name);
     }
     closedir(dir);
