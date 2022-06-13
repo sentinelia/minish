@@ -7,6 +7,7 @@ int builtin_help(int argc, char **argv) {
     if (argc > 2)
     {
         printf("Demasiados argumentos\n");
+        printf("%s\n", builtin_lookup("help")->help_txt);
         return EXIT_FAILURE;
     }
     struct builtin_struct *help = builtin_lookup(argv[1]);

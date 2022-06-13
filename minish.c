@@ -62,12 +62,7 @@ int main(int argc, char *argv[])
         }
 
         char argq = linea2argv(line, MAXLINE, args);
-
-        for (int i = 0; args[i] != NULL; i++)
-        {
-            printf("%d, %s\n", i, args[i]);
-        }
-
+        
         if (argq != 0)
         {
             STATUS = ejecutar(argq, args);
