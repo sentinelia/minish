@@ -5,10 +5,13 @@
 #include <stdlib.h>
 #include <dirent.h>
 #include <pwd.h>
+#include <string.h>
+#include <time.h>
+#include <grp.h>
 
 //FUNCIÓN QUE FORMATEA LOS PERMISOS PARA QUE SEA LEGIBLE
-char format_ch(int mode){
-    char trwx[2]; //STRING QUE INDICA LOS PERMISOS Y TIPO DE ARCHIVO
+char *format_ch(int mode, char trwx[11]){
+    //STRING QUE INDICA LOS PERMISOS Y TIPO DE ARCHIVO
     switch (mode & S_IFMT)
     {
     case S_IFDIR:
@@ -33,17 +36,34 @@ char format_ch(int mode){
         trwx[0] = '-';
         break;
     default:
-        return "ni idea";
-        break;
+        trwx[0] = 'S';
     }
-    trwx[1] = '\0';
-    return trwx[0];
+    trwx[1] = (mode & S_IRWXU) & S_IRUSR ? 'r':'-';
+    trwx[2] = (mode & S_IRWXU) & S_IWUSR ? 'w':'-';
+    trwx[3] = (mode & S_IRWXU) & S_IXUSR ? 'x':'-';
+    trwx[4] = (mode & S_IWGRP) & S_IRGRP ? 'r':'-';
+    trwx[5] = (mode & S_IWGRP) & S_IWGRP ? 'w':'-';
+    trwx[6] = (mode & S_IWGRP) & S_IXGRP ? 'x':'-';
+    trwx[7] = (mode & S_IRWXO) & S_IROTH ? 'r':'-';
+    trwx[8] = (mode & S_IRWXO) & S_IWOTH ? 'w':'-';
+    trwx[9] = (mode & S_IRWXO) & S_IXOTH ? 'x':'-';
+    trwx[10] = '\0';
+
+    return trwx;
+}
+
+char* formatdate(char* str, time_t val)
+{
+        strftime(str, 20, "%d/%m/%Y %H:%M:%S", localtime(&val));
+        return str;
 }
 
 int builtin_dir (int argc, char ** argv){
     DIR *dir;
     struct dirent *myfile;
     struct stat mystat;
+    char trwx[11];
+    char time[20];
 
     if(argc==1){
         dir = opendir(".");
@@ -53,12 +73,16 @@ int builtin_dir (int argc, char ** argv){
 
     while((myfile = readdir(dir)) != NULL)
     {
-        stat(myfile->d_name, &mystat);    
-        printf("%d",mystat.st_size);
-        printf("\t%c", format_ch(mystat.st_mode));
-        printf("\t%s", getpwuid(mystat.st_uid)->pw_name); //TRANSFORMAR
+        stat(myfile->d_name, &mystat);
+        printf("%s", format_ch(mystat.st_mode, trwx));
+        printf(" %d", mystat.st_nlink);
+        printf(" %s", getgrgid(mystat.st_gid)->gr_name); //TRANSFORMAR
+        printf(" %s", getpwuid(mystat.st_gid)->pw_name); //TRANSFORMAR
+        printf("\t%d",mystat.st_size);
+        printf("\t%s",formatdate(time, mystat.st_atime));
         printf("\t%s\n", myfile->d_name);
     }
     closedir(dir);
+    return 0;
 }
 
