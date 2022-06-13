@@ -2,6 +2,13 @@
     "files.associations": {
         "string.h": "c",
         "signal.h": "c",
-        "minish.h": "c"
+        "minish.h": "c",
+        "stdio.h": "c",
+        "types.h": "c",
+        "stat.h": "c",
+        "unistd.h": "c",
+        "pwd.h": "c",
+        "stdlib.h": "c",
+        "dirent.h": "c"
     }
 }
