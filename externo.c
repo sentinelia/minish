@@ -29,6 +29,8 @@ int externo(int argc, char  **argv){
         // ============== NEW CODE HERE ==============
         newact.sa_handler = SIG_DFL;
         sigaction(SIGINT, &newact, NULL);   // reset SIGINT default for child
+
+
         execvp(argv[0], argv);    // if successful, child will go on with new executable
         err(EXIT_FAILURE, "execvp error\n"); // if exec not successful, just exit child
         exit(EXIT_SUCCESS);
@@ -48,6 +50,6 @@ int externo(int argc, char  **argv){
         fprintf(stderr, "Ended sleep child process\n");
 
         // do something with wait_status
-        return WEXITSTATUS(wait_status);
+        return WEXITSTATUS(wait_status) ? WIFEXITED(wait_status): EXIT_FAILURE;
     }
 }
