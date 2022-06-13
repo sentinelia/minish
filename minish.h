@@ -17,6 +17,8 @@ struct builtin_struct {         // struct con información de los builtins
 extern int globalstatret;	// guarda status del ultimo comando
 extern struct sigaction oldact, newact;
 extern struct builtin_struct builtin_arr[];
+extern char pwd[MAXCWD];
+extern int STATUS;
 
 
 /*
