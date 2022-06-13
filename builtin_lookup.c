@@ -18,7 +18,7 @@
 
 
  struct builtin_struct builtin_arr[] = {
-    {"cd", builtin_cd, HELP_CD}, //hacer esto para todos los comandos
+    {"cd", builtin_cd, HELP_CD}, 
     { "exit", builtin_exit, HELP_EXIT },
     { "help", builtin_help, HELP_HELP },
     { "histoy", builtin_history, HELP_HISTORY },
@@ -30,15 +30,15 @@
     { "pid", builtin_pid, HELP_PID },
     { "uid", builtin_uid, HELP_UID },
     { "unsetenv", builtin_unsetenv, HELP_UNSETENV },
-    {0,0,0}
+    { NULL, NULL, NULL}
 };
 
  struct builtin_struct * builtin_lookup(char *cmd){
     struct builtin_struct *p;
-    for (p=builtin_arr; p->cmd!=0; p++) {
+    for (p=builtin_arr; p->cmd != NULL; p++) {
         if (strcmp(cmd, p->cmd) == 0) {
           return p;
         }
     }
-    return p;
+    return NULL;
  }
