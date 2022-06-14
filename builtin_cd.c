@@ -14,7 +14,8 @@ int builtin_cd (int argc, char ** argv){
     else{ 
         chdir(argv[1]);   
     }
-
+    
+    return 0;
 }
 
 
