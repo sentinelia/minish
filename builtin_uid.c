@@ -2,6 +2,7 @@
 #include <sys/types.h>
 #include <pwd.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int builtin_uid (int argc, char ** argv){
 
@@ -10,6 +11,6 @@ int builtin_uid (int argc, char ** argv){
 
     printf("  nombre de usuario  : %s\n",       pws->pw_name);
     printf("  user ID   : %d\n", (int) pws->pw_uid);
-    return 0;
+    return EXIT_SUCCESS;
 
 }

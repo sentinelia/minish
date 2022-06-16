@@ -10,7 +10,7 @@ int builtin_setenv (int argc, char ** argv){
         err(1,"error en el formato del comando, debe ingresar el nombre de la variable y el valor que le desea asignar");
     }else{
         printf("%s\n", setenv(*argv[1], *argv[2], 1));
-        return(0);
+        return(EXIT_SUCCESS);
         }
     
 }

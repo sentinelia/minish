@@ -28,4 +28,6 @@ int builtin_gid (int argc, char ** argv){
         printf("grupo secundario %s\n", getgrnam(i)->gr_name);
     }
 
+    return EXIT_SUCCESS;
+
 }
