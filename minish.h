@@ -2,6 +2,7 @@
 #define MAXCWD 1024         // tamaño máximo para alojar el pathname completo del directorio corriente
 #define MAXWORDS 256        // cantidad máxima de palabras en la línea
 #define HISTORY_FILE	".minish_history"   // nombre del archivo que almacena historia de comandos
+#define MAXHISTORY 500      // tamaño máximo del historial
 
 
 // Definición de Estructuras
@@ -12,6 +13,16 @@ struct builtin_struct {         // struct con información de los builtins
     char *help_txt;             // el texto de ayuda
 };
 
+struct node{
+    char *cmd;
+    struct node* anterior; 
+};
+
+struct linkedlist{
+    struct node *ultimo;
+    int listsize;
+};
+
 // Variables que deben definirse en el main como externas
 
 extern int globalstatret;	// guarda status del ultimo comando
@@ -19,6 +30,8 @@ extern struct sigaction oldact, newact;
 extern struct builtin_struct builtin_arr[];
 extern char pwd[MAXCWD];
 extern int STATUS;
+extern struct linkedlist;
+
 
 
 /*

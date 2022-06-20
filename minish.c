@@ -11,6 +11,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+
 void prompt(char *ps)
 {
     // ps is the prompt string
@@ -40,6 +41,7 @@ int main(int argc, char *argv[])
     char *progname = argv[0];
     struct sigaction oldact, newact;
     char **args;
+    struct linkedlist;
 
     sigaction(SIGINT, NULL,
               &newact); // the  previous action for SIGINT is saved in oldact
@@ -63,6 +65,14 @@ int main(int argc, char *argv[])
                           // loop
             }
         }
+
+        struct node newcmd;
+        newcmd = malloc(sizeof(struct node));
+        newcmd->cmd = line;
+        newcmd->anterior=linkedlist->ultimo;
+        linkedlist->ultimo=newcmd;
+        linkedlist->listsize+=1;
+
         args = malloc(sizeof(char *) * MAXWORDS);
         for (int i = 0; i < MAXWORDS; i++)
         {
