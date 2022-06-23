@@ -41,7 +41,10 @@ int main(int argc, char *argv[])
     char *progname = argv[0];
     struct sigaction oldact, newact;
     char **args;
-    struct linkedlist;
+    struct linkedlist *history;
+    FILE* minish_history;
+
+    //minish_history=fopen('minish_history.txt','at');
 
     sigaction(SIGINT, NULL,
               &newact); // the  previous action for SIGINT is saved in oldact
@@ -66,12 +69,12 @@ int main(int argc, char *argv[])
             }
         }
 
-        struct node newcmd;
+        struct node *newcmd;
         newcmd = malloc(sizeof(struct node));
         newcmd->cmd = line;
-        newcmd->anterior=linkedlist->ultimo;
-        linkedlist->ultimo=newcmd;
-        linkedlist->listsize+=1;
+        newcmd->anterior=history->ultimo;
+        history->ultimo=newcmd;
+        history->listsize+=1;
 
         args = malloc(sizeof(char *) * MAXWORDS);
         for (int i = 0; i < MAXWORDS; i++)

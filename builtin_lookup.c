@@ -21,7 +21,7 @@
     {"cd", builtin_cd, HELP_CD}, 
     { "exit", builtin_exit, HELP_EXIT },
     { "help", builtin_help, HELP_HELP },
-    { "histoy", builtin_history, HELP_HISTORY },
+    { "history", builtin_history, HELP_HISTORY },
     { "status", builtin_status, HELP_STATUS },
     { "dir", builtin_dir, HELP_DIR },
     { "getenv", builtin_getenv, HELP_GETENV },

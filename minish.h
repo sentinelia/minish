@@ -30,7 +30,7 @@ extern struct sigaction oldact, newact;
 extern struct builtin_struct builtin_arr[];
 extern char pwd[MAXCWD];
 extern int STATUS;
-extern struct linkedlist;
+extern struct linkedlist *history;
 
 
 
