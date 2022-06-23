@@ -3,29 +3,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <err.h>
+#include "minish.h"
 
 int builtin_cd (int argc, char ** argv){
+    extern char pwd[];
     if (argc > 2){
-        err(1, "Error, demasiados argumentos.");
+        err(EXIT_FAILURE, "Error, demasiados argumentos.");
     } else {
         if (argc == 2){
-            if (chdir("/*argv[1]") == 0){ //cambia al directorio que me pasaron
-                return 0; 
+            if (chdir(argv[1]) == 0){ //cambia al directorio que me pasaron
+                getcwd(pwd, MAXCWD);
+                return EXIT_SUCCESS;
             }
         }
         if (argc == 1){  
             if (chdir("/home") == 0){  //cambia al directorio de la variable home
-                return 0; 
+                return EXIT_SUCCESS; 
             }
         }
         if (*argv[1] == '-'){
             if (chdir("..") == 0){  //cambia al directorio anterior
-                return 0; 
+                return EXIT_SUCCESS; 
             } 
         }
     }
     
-    return 0;
+    return EXIT_SUCCESS;
     
     
 }

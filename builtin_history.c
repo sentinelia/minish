@@ -39,7 +39,7 @@ int builtin_history (int argc, char ** argv){
             return 0; //EXIT_SUCCESS
         } else {
             for (i = 0; i < file_len && (len = fgetln(history, MAXLINE)) > 0; i++){
-                file_lines[i] = malloc_or_exit(len+1);
+                file_lines[i] = malloc(len+1);
                 strcpy(file_lines[i], line);
             }
 

@@ -38,15 +38,15 @@ char *format_ch(int mode, char trwx[11]){
     default:
         trwx[0] = 'S';
     }
-    trwx[1] = (mode & S_IRWXU) & S_IRUSR ? 'r':'-';
-    trwx[2] = (mode & S_IRWXU) & S_IWUSR ? 'w':'-';
-    trwx[3] = (mode & S_IRWXU) & S_IXUSR ? 'x':'-';
-    trwx[4] = (mode & S_IWGRP) & S_IRGRP ? 'r':'-';
-    trwx[5] = (mode & S_IWGRP) & S_IWGRP ? 'w':'-';
-    trwx[6] = (mode & S_IWGRP) & S_IXGRP ? 'x':'-';
-    trwx[7] = (mode & S_IRWXO) & S_IROTH ? 'r':'-';
-    trwx[8] = (mode & S_IRWXO) & S_IWOTH ? 'w':'-';
-    trwx[9] = (mode & S_IRWXO) & S_IXOTH ? 'x':'-';
+    trwx[1] = mode & S_IRUSR ? 'r':'-';
+    trwx[2] = mode & S_IWUSR ? 'w':'-';
+    trwx[3] = mode & S_IXUSR ? 'x':'-';
+    trwx[4] = mode & S_IRGRP ? 'r':'-';
+    trwx[5] = mode & S_IWGRP ? 'w':'-';
+    trwx[6] = mode & S_IXGRP ? 'x':'-';
+    trwx[7] = mode & S_IROTH ? 'r':'-';
+    trwx[8] = mode & S_IWOTH ? 'w':'-';
+    trwx[9] = mode & S_IXOTH ? 'x':'-';
     trwx[10] = '\0';
 
     return trwx;
@@ -79,8 +79,8 @@ int builtin_dir (int argc, char ** argv){
         stat(myfile->d_name, &mystat);
         printf("%s", format_ch(mystat.st_mode, trwx));
         printf(" %d", mystat.st_nlink);
+        printf(" %s", getpwuid(mystat.st_uid)->pw_name); //TRANSFORMAR
         printf(" %s", getgrgid(mystat.st_gid)->gr_name); //TRANSFORMAR
-        printf(" %s", getpwuid(mystat.st_gid)->pw_name); //TRANSFORMAR
         printf("\t%d",mystat.st_size);
         printf("\t%s",formatdate(time, mystat.st_ctime));
         printf("\t%s\n", myfile->d_name);
